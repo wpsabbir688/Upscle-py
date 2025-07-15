@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Image Upscaler</title>
+
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="icon" href="../static/img/u.png" type="image/x-icon">
+</head>
+<body>
+
+<header>
+  <div id="logos" class="logo"><a href="#logos">🔍 UpscaleAI</a></div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/bg-remove">Remove BG</a>
+    <a href="/seo-gen">Image SEO</a>
+    <a href="/transaction">Transaction</a>
+    <a href="https://www.facebook.com/wpsabbir44" target="_blank" rel="noopener noreferrer">Sabbir Hossain</a>
+  </nav>
+</header>
+
+<section id="hero">
+  <h1>Enhance Your Images with AI</h1>
+  <p>Upload your images and upscale them using advanced AI algorithms.</p>
+</section>
+
+<main>
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" id="uploadForm">
+    <fieldset style="border:none; margin-bottom: 1rem;">
+      <legend style="font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem;">⚡ Choose Your Image Adventure:</legend>
+      <label style="margin-right: 20px; cursor: pointer;">
+        <input type="radio" name="uploadType" value="single" checked onchange="toggleUploadOption()">
+        Single Image Upload
+      </label>
+      <label style="cursor: pointer;">
+        <input type="radio" name="uploadType" value="folder" onchange="toggleUploadOption()">
+        Folder Upload (Multiple Images)
+      </label>
+    </fieldset>
+
+    <div id="singleUpload">
+      <label for="fileInput">Choose image(s):</label>
+      <input type="file" name="fileInput" id="fileInput" accept="image/*" required multiple>
+    </div>
+
+    <div id="folderUpload" style="display:none;">
+      <label for="folderInput">Choose Folder:</label>
+      <input type="file" name="fileInput" id="folderInput" accept="image/*" webkitdirectory directory multiple>
+    </div>
+
+    <label for="scale">Select Upscale Factor:</label>
+    <select name="scale" id="scale" required>
+      {% for i in range(1, 21) %}
+        <option value="{{ i }}" {% if i == scale|default(4) %}selected{% endif %}>{{ i }}x</option>
+      {% endfor %}
+    </select>
+
+    <div id="progressWrapper" style="display:none;">
+      <progress id="progressBar" value="0" max="100"></progress>
+      <p id="progressText" style="text-align:center;">0%</p>
+    </div>
+
+    <input type="submit" value="Upscale Image(s)">
+  </form>
+
+  {% if errors %}
+  <div style="color:red; margin-top: 1em;">
+    <h3>Errors:</h3>
+    <ul>
+      {% for error in errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if results %}
+  <div class="results-container">
+    {% for result in results %}
+    <div class="image-pair">
+      <div class="image-box">
+        <h4>Original</h4>
+        <img src="{{ result.original }}" alt="Original Image" onclick="zoomImage(this)" loading="lazy">
+      </div>
+      <div class="image-box">
+        <h4>Upscaled ({{ scale }}x)</h4>
+        <img src="{{ result.png }}" alt="Upscaled Image" onclick="zoomImage(this)" loading="lazy">
+        <br>
+        <a href="{{ result.png }}" download="{{ result.png_download }}">⬇ Download PNG</a> |
+        <a href="{{ result.jpg }}" download="{{ result.jpg_download }}">⬇ Download JPG</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</main>
+
+<!-- Pricing Section -->
+<section class="pricing-section">
+  <h2 style="text-align:center; margin-top: 3rem;">💸 Choose a Pricing Plan</h2>
+  <div class="pricing-cards" style="display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-top: 2rem;">
+    <div class="card" style="border:1px solid #ccc; padding:1rem; width:250px; border-radius:8px; text-align:center;">
+      <h3>Basic</h3>
+      <p class="price">৳1000 / 30 Days</p>
+      <ul style="list-style:none; padding:0;">
+        <li>✅ Unlimited Upscales</li>
+        <li>✅ Standard Queue</li>
+        <li>✅ Up to 20x Resolution</li>
+      </ul>
+      <a href="/transaction" class="btn">Get Basic</a>
+    </div>
+    <div class="card" style="border:2px solid #0a74da; padding:1rem; width:250px; border-radius:8px; text-align:center; background-color:#f0f8ff;">
+      <h3>Pro</h3>
+      <p class="price">৳5000 / 6 Months</p>
+      <ul style="list-style:none; padding:0;">
+        <li>🚀 Priority Queue</li>
+        <li>✅ Unlimited Upscales</li>
+        <li>✅ Up to 20x Resolution</li>
+      </ul>
+      <a href="/transaction" class="btn">Get Pro</a>
+    </div>
+    <div class="card" style="border:1px solid #ccc; padding:1rem; width:250px; border-radius:8px; text-align:center;">
+      <h3>Elite</h3>
+      <p class="price">৳10000 / Year</p>
+      <ul style="list-style:none; padding:0;">
+        <li>🌟 Premium Support</li>
+        <li>🚀 Priority Queue</li>
+        <li>✅ Unlimited Upscales</li>
+      </ul>
+      <a href="/transaction" class="btn">Get Elite</a>
+    </div>
+  </div>
+</section>
+
+<!-- Password Modal -->
+{% if locked %}
+<div id="passwordModal" class="modal" style="display:flex;">
+  <div class="modal-content">
+    <h3>🔐 Upscaling Locked</h3>
+    <p>আপনি 20 বার ফ্রি আপস্কেল ব্যবহার করেছে।<br>অনুগ্রহ করে পাসওয়ার্ড দিন আনলক করার জন্য্য।</p>
+    <form method="POST" action="{{ url_for('verify_password') }}">
+      <input type="password" name="password" placeholder="পাসওয়ার্ড দিন" required autofocus>
+      <button type="submit">আনলক করুন</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+
+<!-- Zoom Overlay -->
+<div class="overlay" id="overlay" onclick="closeZoom()" style="display:none;">
+  <img src="#" alt="Zoomed Image" />
+</div>
+
+<footer>
+  <p>&copy; 2025 UpscaleAI by Sabbir. All rights reserved.</p>
+</footer>
+
+<script>
+  const overlay = document.getElementById('overlay');
+  const overlayImg = overlay.querySelector('img');
+
+  function zoomImage(img) {
+    overlayImg.src = img.src;
+    overlay.style.display = 'flex';
+  }
+
+  function closeZoom() {
+    overlay.style.display = 'none';
+    overlayImg.src = '';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") closeZoom();
+  });
+
+  // ===== Simulated Upload Progress =====
+  document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    const progressWrapper = document.getElementById('progressWrapper');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+
+    progressWrapper.style.display = 'block';
+    let progress = 0;
+
+    const simulateProgress = setInterval(() => {
+      progress += 5;
+      if (progress > 100) {
+        clearInterval(simulateProgress);
+      } else {
+        progressBar.value = progress;
+        progressText.textContent = progress + '%';
+      }
+    }, 100);
+  });
+
+  function toggleUploadOption() {
+    const selectedType = document.querySelector('input[name="uploadType"]:checked').value;
+    document.getElementById('singleUpload').style.display = selectedType === 'single' ? 'block' : 'none';
+    document.getElementById('folderUpload').style.display = selectedType === 'folder' ? 'block' : 'none';
+  }
+</script>
+
+<script src="../static/JS/main.js"></script>
+
+</body>
+</html>

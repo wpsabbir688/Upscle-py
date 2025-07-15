@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transaction Form - UpscaleAI</title>
+  <link rel="stylesheet" href="/static/css/transaction.css" />
+  <link rel="icon" href="/static/img/u.png" type="image/x-icon">
+</head>
+<body>
+
+<header>
+  <div id="logos" class="logo"><a href="#logos">🔍 UpscaleAI</a></div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/bg-remove">Remove BG</a>
+    <a href="/seo-gen">Image SEO</a>
+    <a href="/transaction">Transaction</a>
+    <a href="https://www.facebook.com/wpsabbir44" target="_blank" rel="noopener noreferrer">Sabbir Hossain</a>
+  </nav>
+</header>
+
+<section class="container">
+  <h1>💳 পেমেন্ট সাবমিট করুন</h1>
+  <p>পেমেন্ট সম্পন্ন করার পর নিচের ফর্মটি পূরণ করুন।</p>
+
+  <div class="payment-info">
+    <strong>Send Money To:</strong><br>
+    <span>📱 Bkash / Nagad Number: <b>+8801944460344</b></span>
+  </div>
+
+  <form id="transactionForm">
+    <label for="transaction_id">🧾 Transaction ID:</label>
+    <input type="text" id="transaction_id" name="transaction_id" required placeholder="ট্রানজেকশন আইডি লিখুন" />
+
+    <label for="email">📧 আপনার ইমেইল:</label>
+    <input type="email" id="email" name="email" required placeholder="আপনার ইমেইল দিন" />
+
+    <input type="submit" value="✅ সাবমিট করুন" />
+  </form>
+
+  <p id="responseMsg" aria-live="polite"></p>
+</section>
+
+<script>
+  document.getElementById("transactionForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const transactionId = document.getElementById("transaction_id").value.trim();
+    const userEmail = document.getElementById("email").value.trim();
+
+    if (!transactionId || !userEmail) return;
+
+    const toEmail = "wpsabbir44@gmail.com"; // তোমার ইমেইল
+    const subject = encodeURIComponent("New Payment Submitted");
+    const body = encodeURIComponent(`🧾 Transaction ID: ${transactionId}\n📧 User Email: ${userEmail}`);
+
+    const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+
+    window.location.href = mailtoLink;
+
+    document.getElementById("responseMsg").textContent = "✅ ইমেইল ক্লায়েন্টে পাঠানোর জন্য খুলেছে। দয়া করে পাঠান।";
+    this.reset();
+  });
+</script>
+
+</body>
+</html>

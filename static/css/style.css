@@ -1,0 +1,351 @@
+/* ======== Global & Basic Styles ======== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f6f6f6;
+  margin: 0;
+  padding: 0;
+  color: #222;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+a:hover, a:focus {
+  color: #ff0044;
+  outline: none;
+}
+
+/* ======== Header ======== */
+header {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header .logo a {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ff0044;
+  text-decoration: none; /* underline removed */
+  letter-spacing: 1px;
+  user-select: none;
+  cursor: default;
+}
+
+nav a {
+  margin-left: 25px;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover, nav a:focus {
+  background-color: #ff0044;
+  color: #fff;
+  outline: none;
+}
+
+/* ======== Hero Section ======== */
+#hero {
+  background: linear-gradient(135deg, #ff0044, #ff7f50);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+/* ======== Main & Forms ======== */
+main {
+  padding: 20px;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input[type="file"], select, input[type="submit"], input[type="password"], button {
+  width: 100%;
+  padding: 15px 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+input[type="submit"], button {
+  background-color: #ff0044;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+input[type="submit"]:hover, button:hover {
+  background-color: #e6003c;
+}
+
+/* ======== Image Section ======== */
+.image-pair {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
+}
+
+.image-box {
+  width: 48%;
+  text-align: center;
+}
+
+.image-box img {
+  max-width: 100%;
+  border-radius: 10px;
+  cursor: zoom-in;
+}
+
+.image-box a {
+  display: inline-block;
+  margin-top: 10px;
+  background: #ff0044;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* ======== Zoom Overlay ======== */
+.overlay {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+
+.overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+/* ======== Progress Bar ======== */
+#progressWrapper {
+  margin-bottom: 15px;
+}
+
+progress#progressBar {
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  appearance: none;
+}
+
+progress#progressBar::-webkit-progress-bar {
+  background-color: #ffffff;
+}
+
+progress#progressBar::-webkit-progress-value {
+  border-radius: 10px;
+  background-color: #ff0044;
+}
+
+/* ======== Pricing Section ======== */
+.pricing-section {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.pricing-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.pricing-section .subtitle {
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.pricing-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 20px;
+  width: 280px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #ff0044;
+}
+
+.card .price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.card ul li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.card .btn {
+  display: inline-block;
+  background-color: #ff0044;
+  color: #fff;
+  padding: 5px 90px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.card .btn:hover {
+  background-color: #e6003c;
+}
+
+.featured {
+  border: 2px solid #ff0044;
+  background-color: #fff7fa;
+}
+
+/* ======== Modal Password Lock ======== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  max-width: 400px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+/* ======== Footer ======== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 50px;
+}
+
+
+/* Modal styles (যদি আপনার style.css-এ না থাকে) */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .modal-content h3 {
+      margin-bottom: 20px;
+      color: #ff0044;
+    }
+    .modal-content p {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    .modal-content input[type="password"] {
+      width: 90%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .modal-content button {
+      background-color: #ff0044;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+      font-size: 1.1rem;
+    }
+    .modal-content button:hover {
+      background-color: #e6003c;
+    }
+
+    #progressWrapper {
+  margin: 1rem 0;
+}
+#progressBar {
+  width: 100%;
+  height: 20px;
+  border-radius: 5px;
+}

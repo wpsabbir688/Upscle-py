@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="../static/css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <h2>🔐 Admin Panel - Generate Access Key</h2>
+
+    <form method="POST">
+      <label for="duration">Select Access Duration:</label>
+      <select name="duration" id="duration" required>
+        <option value="1">1 Day</option>
+        <option value="30">30 Days</option>
+        <option value="180">6 Months</option>
+        <option value="365">1 Year</option>
+      </select>
+      <button type="submit">Generate Key</button>
+    </form>
+
+    {% if generated_key %}
+    <div class="generated-key">
+      <strong>Generated Key:</strong>
+      <code>{{ generated_key }}</code>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

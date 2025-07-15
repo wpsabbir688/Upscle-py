@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image SEO Generator | UpscaleAI</title>
+  <link rel="stylesheet" href="../static/css/seo_gen.css" />
+  <link rel="icon" href="../static/img/u.png" type="image/x-icon" />
+</head>
+<body>
+
+<header>
+  <div id="logos" class="logo"><a href="/">🔍 UpscaleAI</a></div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/bg-remove">Remove BG</a>
+    <a href="/seo-gen">Image SEO</a>
+    <a href="/transaction">Transaction</a>
+    <a href="https://www.facebook.com/wpsabbir44" target="_blank">Sabbir Hossain</a>
+  </nav>
+</header>
+
+<main class="main-container">
+  <h1>🖼️ Image SEO Title & Keywords Generator</h1>
+  <p>Upload images and generate SEO-optimized titles and keywords using AI.</p>
+
+  <!-- SEO Form -->
+  <form action="{{ url_for('seo_gen_bp.seo_gen') }}" method="post" enctype="multipart/form-data" id="seoForm">
+    <label for="api_key">Google Gemini API Key:</label>
+    <input type="text" id="api_key" name="api_key"
+           value="{{ api_key|default('') }}"
+           placeholder="Enter your Gemini API Key here"
+           required class="input-field"/>
+
+    <label for="fileInput">Upload Image(s):</label>
+    <input type="file" name="fileInput" id="fileInput"
+           accept="image/*" multiple required class="input-field"/>
+
+    <button type="submit" class="btn-submit">🚀 Generate SEO</button>
+  </form>
+
+  <!-- Error Section -->
+  {% if errors %}
+  <div class="error-box">
+    <h3>❌ Errors:</h3>
+    <ul>
+      {% for error in errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <!-- Results Section -->
+  {% if results %}
+  <section class="results-section">
+    <h2>✅ Generated SEO Titles & Keywords</h2>
+    {% for item in results %}
+    <div class="result-item">
+      <h3>{{ item.filename }}</h3>
+
+      {% set parts = item.generated_text.split('\n', 1) %}
+      {% set new_title = parts[0] if parts|length > 0 else '' %}
+      {% set new_keywords = parts[1] if parts|length > 1 else '' %}
+
+      <label>New SEO Title:</label>
+      <pre id="new-title-{{ loop.index }}">{{ new_title }}</pre>
+      <button class="copy-btn" data-target="new-title-{{ loop.index }}">Copy New Title</button>
+
+      <label>New SEO Keywords:</label>
+      <pre id="new-keywords-{{ loop.index }}">{{ new_keywords }}</pre>
+      <button class="copy-btn" data-target="new-keywords-{{ loop.index }}">Copy New Keywords</button>
+
+      {% if all_seo %}
+        {% for old in all_seo %}
+          {% if old.image_name == item.filename %}
+            <label>Old Title:</label>
+            <pre id="old-title-{{ loop.index }}">{{ old.title }}</pre>
+            <button class="copy-btn" data-target="old-title-{{ loop.index }}">Copy Old Title</button>
+
+            <label>Old Keywords:</label>
+            <pre id="old-keywords-{{ loop.index }}">{{ old.keywords }}</pre>
+            <button class="copy-btn" data-target="old-keywords-{{ loop.index }}">Copy Old Keywords</button>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  <!-- Previous Records Display (optional) -->
+  {% if all_seo %}
+  <section class="history-section">
+    <h2>📁 Previously Saved SEO Data</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>🖼️ Image Name</th>
+          <th>🔤 SEO Title</th>
+          <th>🔑 Keywords</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in all_seo %}
+        <tr>
+          <td>{{ row['image_name'] }}</td>
+          <td>{{ row['title'] }}</td>
+          <td>{{ row['keywords'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+</main>
+
+<footer>
+  <p>&copy; 2025 UpscaleAI by Sabbir. All rights reserved.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-target');
+      const textToCopy = document.getElementById(targetId).innerText;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        button.textContent = "Copied!";
+        setTimeout(() => {
+          button.textContent = button.dataset.originalText || "Copy";
+        }, 1500);
+      }).catch(err => {
+        alert("Failed to copy: " + err);
+      });
+    });
+    // Save original button text
+    button.dataset.originalText = button.textContent;
+  });
+</script>
+
+</body>
+</html>

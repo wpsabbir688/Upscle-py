@@ -1,0 +1,155 @@
+/* ======== Global & Basic Styles ======== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f6f6f6;
+  margin: 0;
+  padding: 0;
+  color: #222;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+a:hover, a:focus {
+  color: #ff0044;
+  outline: none;
+}
+
+/* ======== Header ======== */
+header {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header .logo a {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ff0044;
+  text-decoration: none; /* underline removed */
+  letter-spacing: 1px;
+  user-select: none;
+  cursor: default;
+}
+
+nav a {
+  margin-left: 25px;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover, nav a:focus {
+  background-color: #ff0044;
+  color: #fff;
+  outline: none;
+}
+
+
+/* ===== Container Section ===== */
+.container {
+  max-width: 460px;
+  margin: 50px auto;
+  padding: 30px 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+h1 {
+  color: #ff0044;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+/* ===== Payment Info ===== */
+.payment-info {
+  background: #fff7fa;
+  border: 2px solid #ff0044;
+  padding: 12px 20px;
+  border-radius: 10px;
+  color: #ff0044;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.payment-info b {
+  font-weight: 900;
+}
+
+/* ===== Form Styles ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+label {
+  font-weight: 600;
+  color: #222;
+  text-align: left;
+  font-size: 1rem;
+}
+
+input[type="text"],
+input[type="email"] {
+  padding: 14px 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  border-color: #ff0044;
+}
+
+input[type="submit"] {
+  padding: 15px;
+  font-size: 1.1rem;
+  background-color: #ff0044;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #e6003c;
+}
+
+/* ===== Response message ===== */
+#responseMsg {
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #28a745; /* success green */
+  min-height: 1.2em;
+}

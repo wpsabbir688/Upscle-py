@@ -1,0 +1,128 @@
+/* ======== Global & Basic Styles ======== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f6f6f6;
+  margin: 0;
+  padding: 0;
+  color: #222;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+a:hover, a:focus {
+  color: #ff0044;
+  outline: none;
+}
+
+/* ======== Header ======== */
+header {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header .logo a {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ff0044;
+  text-decoration: none; /* underline removed */
+  letter-spacing: 1px;
+  user-select: none;
+  cursor: default;
+}
+
+nav a {
+  margin-left: 25px;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover, nav a:focus {
+  background-color: #ff0044;
+  color: #fff;
+  outline: none;
+}
+
+
+/* Background Remove পেজের জন্য বিশেষ স্টাইল */
+
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h1 {
+  color: #ff0044;
+  margin-bottom: 20px;
+}
+
+input[type="file"], input[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+input[type="submit"] {
+  background-color: #ff0044;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #e6003c;
+}
+
+.image-output {
+  margin-top: 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.image-output img {
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(255, 0, 68, 0.3);
+  cursor: zoom-in;
+  transition: filter 0.3s ease;
+}
+
+.image-output img:hover {
+  filter: blur(5px);
+}
+
+.download-link {
+  display: inline-block;
+  margin-top: 12px;
+  background: #ff0044;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+}

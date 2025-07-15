@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Image Generator</title>
+  <link rel="stylesheet" href="../static/css/img_sty.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo"><a href="/">🔍 UpscaleAI</a></div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/prompt-to-image">🎨 AI IMG Generator</a>
+    <a href="/bg-remove">BG Remove</a>
+    <a href="/prompt-to-image" class="active">AI Image Generator</a>
+  </nav>
+</header>
+
+<!-- Banner Section -->
+<section id="hero" style="padding: 60px 20px; background: linear-gradient(135deg, #ff0044, #ff7f50); color: white; text-align: center;">
+  <h1>Generate Stunning AI Images</h1>
+  <p>Create up to 4 images at once with customizable aspect ratios and model choices.</p>
+</section>
+
+<!-- Image Generator Section -->
+<main class="container">
+  <form action="/prompt-to-image" method="post" id="imgGenForm">
+    <label for="prompt">Enter your image prompt:</label>
+    <input type="text" id="prompt" name="prompt" placeholder="Describe your image..." required />
+
+    <label for="aspectRatio">Select Aspect Ratio:</label>
+    <select id="aspectRatio" name="aspect_ratio" required>
+      <option value="21:9">21:9</option>
+      <option value="16:9" selected>16:9</option>
+      <option value="3:2">3:2</option>
+      <option value="4:3">4:3</option>
+      <option value="1:1">1:1</option>
+      <option value="3:4">3:4</option>
+      <option value="2:3">2:3</option>
+      <option value="9:16">9:16</option>
+    </select>
+
+    <label for="numImages">Number of Images to Generate:</label>
+    <select id="numImages" name="num_images" required>
+      <option value="1" selected>1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+
+    <label for="modelName">Choose Model:</label>
+    <select id="modelName" name="model_name" required>
+      <option value="image_1_0">IMAGE 1.0 First</option>
+      <option value="image_1_5" disabled>IMAGE 1.5 Coming Soon</option>
+    </select>
+
+    <button type="submit">Generate Image(s)</button>
+  </form>
+
+  <!-- Results -->
+  {% if error %}
+    <p style="color:red; text-align:center;">Error: {{ error }}</p>
+  {% endif %}
+
+  {% if result %}
+    <h2>Generated Image{{ result.images|length > 1 and 's' or '' }} for "{{ result.prompt }}"</h2>
+    <div class="image-output">
+      {% for img_data in result.images %}
+        <div class="image-pair" style="display: inline-block; margin: 10px;">
+          <img src="data:image/png;base64,{{ img_data }}" alt="Generated Image" />
+          <br />
+          <a href="data:image/png;base64,{{ img_data }}" download="{{ result.prompt | replace(' ', '_') }}_{{ loop.index }}.png" class="btn">Download</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</main>
+
+<!-- Pricing Section -->
+<section class="pricing-section">
+  <h1>Our Pricing Plans</h1>
+  <p class="subtitle">Choose a plan that fits your needs.</p>
+
+  <div class="pricing-cards">
+    <div class="card">
+      <h2>Basic</h2>
+      <p class="price">$10</p>
+      <ul>
+        <li>✔️ Unlimited Upscales</li>
+        <li>✔️ 30-Day Access</li>
+        <li>✔️ Up to 4x Resolution</li>
+        <li>✔️ Standard Queue</li>
+      </ul>
+      <a href="https://www.facebook.com/wpsabbir44" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="card featured">
+      <h2>Pro</h2>
+      <p class="price">$50</p>
+      <ul>
+        <li>✔️ Unlimited Upscales</li>
+        <li>✔️ 150-Day Access</li>
+        <li>✔️ Up to 10x Resolution</li>
+        <li>✔️ Priority Queue</li>
+      </ul>
+      <a href="https://www.facebook.com/wpsabbir44" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="card">
+      <h2>Elite</h2>
+      <p class="price">$100</p>
+      <ul>
+        <li>✔️ Unlimited Upscales</li>
+        <li>✔️ 6-Month Access</li>
+        <li>✔️ Up to 20x Resolution</li>
+        <li>✔️ Premium Support</li>
+      </ul>
+      <a href="https://www.facebook.com/wpsabbir44" class="btn">Choose Plan</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 UpscaleAI by Sabbir. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

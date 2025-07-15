@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Remove Background</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo"><a href="/">🔍 UpscaleAI</a></div>
+  <nav>
+    <a href="/">Home</a>
+    <!--<a href="/prompt-to-image">🎨 AI IMG Generator</a>-->
+    <a href="/bg-remove">BG Remove</a>
+    <a href="/seo-gen">Image SEO</a>
+    <a href="/transaction">Transaction</a>
+    <a href="https://www.facebook.com/wpsabbir44" target="_blank">Sabbir Hossain</a>
+  </nav>
+</header>
+
+<section id="hero">
+  <h1>Remove Image Background</h1>
+  <p>Upload a JPG image and remove its background instantly.</p>
+</section>
+
+<main>
+  <form action="/bg-remove" method="POST" enctype="multipart/form-data">
+    <label for="fileInput">Select JPG, PNG, Image:</label>
+    <input type="file" name="fileInput" id="fileInput" accept=".jpg,.jpeg,.png,.webp" required>
+    <input type="submit" value="Remove Background">
+  </form>
+
+  {% if result %}
+  <div class="image-pair">
+    <div class="image-box">
+      <h4>Original</h4>
+      <img src="data:image/jpeg;base64,{{ result.original }}" alt="Original Image">
+    </div>
+    <div class="image-box">
+      <h4>Background Removed</h4>
+      <img src="data:image/png;base64,{{ result.removed }}" alt="Background Removed Image">
+      <br>
+      <a href="data:image/png;base64,{{ result.removed }}" download="{{ result.download_name }}">⬇ Download PNG</a>
+    </div>
+  </div>
+  {% endif %}
+</main>
+
+<footer>
+  <p>&copy; 2025 UpscaleAI by Sabbir. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+<!-- Static JS file -->
